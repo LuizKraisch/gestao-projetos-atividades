@@ -21,7 +21,7 @@
     <form name="cadastroAti_form" method="POST" action="../PHPinclusoes/inclusaoAtividade.php">
         <div class="form-row mt-2 mb-3">
             <div class="col-md-12">
-                <label for="nome_projeto"><b>ID do Projeto</b></label>
+                <label for="nome_projeto"><b>Qual projeto?</b></label>
                 <select class="form-control" name="ID_projeto">
 					<option value="0">Selecione</option>
                     <?php
