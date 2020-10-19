@@ -50,7 +50,22 @@
                 $IDProjeto = $projetos["IDProjeto"];
                 $nomeProjeto = $projetos["nomeProjeto"];
                 $dataInicioPro = $projetos["dataInicioPro"];
-                $dataFimPro = $projetos["dataFimPro"];                
+                $dataFimPro = $projetos["dataFimPro"];
+
+                $maxDataFimAti = mysqli_query($conexao, "SELECT MAX(dataFimAti) FROM atividades");
+                $reMaxDataFimAti = mysqli_fetch_array($maxDataFimAti);
+
+                $maxDataFimPro = mysqli_query($conexao, "SELECT MAX(dataFimPro) FROM projetos");
+                $reMaxDataFimPro = mysqli_fetch_array($maxDataFimPro);
+
+                $infoFinalizadaAti = mysqli_query($conexao, "SELECT infoFinalizada FROM atividades");
+                $reInfoFinalizadaAti = mysqli_fetch_array($infoFinalizadaAti);
+
+                if ($reMaxDataFimAti[0] > $reMaxDataFimPro[0] && $reInfoFinalizadaAti[0] == 0) {
+                    $atrasado = "Sim";
+                } else {
+                    $atrasado = "Não";
+                }
         ?>	
         <tr>
             <td><?php echo $IDProjeto ?></td>
@@ -85,12 +100,6 @@
                 $dataInicioAti = $atividades["dataInicioAti"];
                 $dataFimAti = $atividades["dataFimAti"];
                 $infoFinalizada = $atividades["infoFinalizada"];
-
-                if ($dataFimAti > $dataFimPro) {
-                    $atrasado = "Sim";
-                } else {
-                    $atrasado = "Não";
-                }
 
                 if ($infoFinalizada == 1) {
                     $Finalizada = "Sim";
