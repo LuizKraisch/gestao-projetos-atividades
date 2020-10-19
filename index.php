@@ -43,27 +43,27 @@
             <th scope="col">Data Início</td>
             <th scope="col">Data Fim</td>
             <th scope="col">% Completo</th>
-            <th scope="col">Atrasado</th>
+            <th scope="col">Atrasado?</th>
         </thead>
         <?php
-            while($projetos = mysqli_fetch_array($query_pro))
-            {
+            while ($projetos = mysqli_fetch_array($query_pro)) {
                 $IDProjeto = $projetos["IDProjeto"];
                 $nomeProjeto = $projetos["nomeProjeto"];
-                $dataInicio = $projetos["dataInicio"];
-                $dataFim = $projetos["dataFim"];
+                $dataInicioPro = $projetos["dataInicioPro"];
+                $dataFimPro = $projetos["dataFimPro"];                
         ?>	
         <tr>
             <td><?php echo $IDProjeto ?></td>
             <td><?php echo $nomeProjeto ?></td>
-            <td><?php echo $dataInicio ?></td>
-            <td><?php echo $dataFim ?></td>
+            <td><?php echo date('d/m/Y',strtotime($dataInicioPro)) ?></td>
+            <td><?php echo date('d/m/Y',strtotime($dataFimPro)) ?></td>
+            <td><?php echo "% Completo" ?></td>
+            <td><?php echo $atrasado ?></td>
         </tr>
-        <?php 
+        <?php
             }
         ?>
     </table>
-    <hr>
     <br>
     <h3>Atividades em aberto</h3>
     <h6 class="text-muted font-weight-normal">Abaixo estão listadas as atividades em aberto.</h6>
@@ -78,22 +78,35 @@
             <th scope="col">Finalizada?</th>
         </thead>
         <?php
-            while($atividades = mysqli_fetch_array($query_ati))
-            {
+            while ($atividades = mysqli_fetch_array($query_ati)) {
                 $IDAtividade = $atividades["IDAtividade"];
                 $IDProjeto = $atividades["IDProjeto"];
                 $nomeAtividade = $atividades["nomeAtividade"];
-                $dataInicio = $atividades["dataInicio"];
-                $dataFim = $atividades["dataFim"];
-                $infoFinzalizada = $atividades["infoFinalizada"];
+                $dataInicioAti = $atividades["dataInicioAti"];
+                $dataFimAti = $atividades["dataFimAti"];
+                $infoFinalizada = $atividades["infoFinalizada"];
+
+                if ($dataFimAti > $dataFimPro) {
+                    $atrasado = "Sim";
+                } else {
+                    $atrasado = "Não";
+                }
+
+                if ($infoFinalizada == 1) {
+                    $Finalizada = "Sim";
+                } else if ($infoFinalizada == 0) {
+                    $Finalizada = "Não";
+                } else {
+                    $Finalizada = "Não Informado";
+                }
         ?>	
         <tr>
             <td><?php echo $IDAtividade ?></td>
-            <td><?php echo $IDProjeto ?></td>
+            <td><?php echo "<b>$IDProjeto</b>" ?></td>
             <td><?php echo $nomeAtividade ?></td>
-            <td><?php echo $dataInicio ?></td>
-            <td><?php echo $dataFim ?></td>
-            <td><?php echo $infoFinzalizada ?></td>
+            <td><?php echo date('d/m/Y',strtotime($dataInicioAti)) ?></td>
+            <td><?php echo date('d/m/Y',strtotime($dataFimAti)) ?></td>
+            <td><?php echo $Finalizada ?></td>
         </tr>
         <?php 
             }

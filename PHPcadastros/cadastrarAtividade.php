@@ -25,13 +25,13 @@
                 <select class="form-control" name="ID_projeto">
 					<option value="0">Selecione</option>
                     <?php
-                    $sql = "select * from projetos";
-                    $query = mysqli_query($conexao, $sql);
-                    while ($exibir = mysqli_fetch_array($query)) {
+                        $sql = "select * from projetos";
+                        $query = mysqli_query($conexao, $sql);
+                        while ($exibir = mysqli_fetch_array($query)) {
                     ?>
-                        <option value="<?php echo $exibir["IDProjeto"]; ?>"><?php echo $exibir["IDProjeto"], " - ", $exibir["nomeProjeto"]; ?></option>
+                    <option value="<?php echo $exibir["IDProjeto"]; ?>"><?php echo $exibir["IDProjeto"], " - ", $exibir["nomeProjeto"]; ?></option>
                     <?php
-                    }
+                        }
                     ?>
 				</select>
             </div>
@@ -58,6 +58,7 @@
             <div class="col-md-12">
                 <label><b>A atividade está finalizada?</b></label>
                 <select name="info_finalizada" class="form-control">
+                    <option value="2">Não Informar</option>
                     <option value="0">Não</option>
                     <option value="1">Sim</option>
                 </select>

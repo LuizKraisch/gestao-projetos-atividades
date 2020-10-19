@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>Cadastrando...</title>
+<title>Cadastrando Projeto...</title>
 <?php 
 	include "../conexao.php";
 	
@@ -7,7 +7,7 @@
 	$dataInicio = $_POST['data_inicio_pro'];
 	$dataFim = $_POST['data_fim_pro'];
 	
-	if ($dados = mysqli_query($conexao, "INSERT INTO projetos (nomeProjeto, dataInicio, dataFim) VALUES ('$nomeProjeto', '$dataInicio', '$dataFim')")){
+	if ($dados = mysqli_query($conexao, "INSERT INTO projetos (nomeProjeto, dataInicioPro, dataFimPro) VALUES ('$nomeProjeto', '$dataInicio', '$dataFim')")){
 		echo"<script>alert('Inclusão realizada com sucesso!');</script>";
 		echo"<script>window.location='../index.php'</script>";
 	}
