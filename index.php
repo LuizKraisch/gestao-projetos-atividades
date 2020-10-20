@@ -59,20 +59,35 @@
                 $reMaxDataFimPro = mysqli_fetch_array($maxDataFimPro);
 
                 $infoFinalizadaAti = mysqli_query($conexao, "SELECT infoFinalizada FROM atividades");
-                $reInfoFinalizadaAti = mysqli_fetch_array($infoFinalizadaAti);
 
-                if ($reMaxDataFimAti[0] > $reMaxDataFimPro[0] && $reInfoFinalizadaAti[0] == 0) {
-                    $atrasado = "Sim";
-                } else {
-                    $atrasado = "Não";
+                $colunaInfo = Array();
+                while ($linhaInfo = mysqli_fetch_array($infoFinalizadaAti, MYSQLI_ASSOC)) {
+                    $colunaInfo [] =  $linhaInfo['infoFinalizada'];  
                 }
+
+                $infoConcluida = 0;
+
+                for ($i = 0; $i < count($colunaInfo); $i++) {
+                    if ($reMaxDataFimAti[0] > $reMaxDataFimPro[0] && $colunaInfo[$i] == 0) {
+                        $atrasado = "Sim";
+                    } else {
+                        $atrasado = "Não";
+                    }
+
+                    if ($colunaInfo[$i] == 1) {
+                        $infoConcluida++;
+                    }
+                }
+
+                $totalInfo = count($colunaInfo);
+                $porcentagemCon = ($infoConcluida/$totalInfo) * 100; 
         ?>	
         <tr>
             <td><?php echo $IDProjeto ?></td>
             <td><?php echo $nomeProjeto ?></td>
             <td><?php echo date('d/m/Y',strtotime($dataInicioPro)) ?></td>
             <td><?php echo date('d/m/Y',strtotime($dataFimPro)) ?></td>
-            <td><?php echo "% Completo" ?></td>
+            <td><?php echo round($porcentagemCon), "%" ?></td>
             <td><?php echo $atrasado ?></td>
         </tr>
         <?php
