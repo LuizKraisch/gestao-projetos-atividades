@@ -7,6 +7,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="estilo.css">
     <?php 
+        Error_reporting (0);
         include 'conexao.php';
         $sql_pro = 'select * from projetos';
         $sql_ati = 'select * from atividades';
@@ -52,23 +53,35 @@
                 $dataInicioPro = $projetos["dataInicioPro"];
                 $dataFimPro = $projetos["dataFimPro"];
 
-                $maxDataFimAti = mysqli_query($conexao, "SELECT MAX(dataFimAti) FROM atividades");
+                /*$maxDataFimAti = mysqli_query($conexao, "SELECT MAX(dataFimAti) FROM atividades");
                 $reMaxDataFimAti = mysqli_fetch_array($maxDataFimAti);
 
                 $maxDataFimPro = mysqli_query($conexao, "SELECT MAX(dataFimPro) FROM projetos");
-                $reMaxDataFimPro = mysqli_fetch_array($maxDataFimPro);
+                $reMaxDataFimPro = mysqli_fetch_array($maxDataFimPro);*/
+
+                $maxDataFimAti = mysqli_query($conexao, "SELECT dataFimAti FROM atividades");
+                $colunaDataFimAti = Array();
+                while ($linhaDataFimAti = mysqli_fetch_array($maxDataFimAti, MYSQLI_ASSOC)) {
+                    $colunaDataFimAti [] =  $linhaDataFimAti['dataFimAti'];  
+                }
+
+                $maxDataFimPro = mysqli_query($conexao, "SELECT dataFimPro FROM projetos");
+                $colunaDataFimPro = Array();
+                while ($linhaDataFimPro = mysqli_fetch_array($maxDataFimPro, MYSQLI_ASSOC)) {
+                    $colunaDataFimPro [] =  $linhaDataFimPro['dataFimPro'];  
+                }
 
                 $infoFinalizadaAti = mysqli_query($conexao, "SELECT infoFinalizada FROM atividades");
-
                 $colunaInfo = Array();
                 while ($linhaInfo = mysqli_fetch_array($infoFinalizadaAti, MYSQLI_ASSOC)) {
                     $colunaInfo [] =  $linhaInfo['infoFinalizada'];  
                 }
 
                 $infoConcluida = 0;
-
+                $atrasado = "Não informado";
+                
                 for ($i = 0; $i < count($colunaInfo); $i++) {
-                    if ($reMaxDataFimAti[0] > $reMaxDataFimPro[0] && $colunaInfo[$i] == 0) {
+                    if (max($colunaDataFimPro) < max($colunaDataFimAti) && end($colunaInfo) == 0) {
                         $atrasado = "Sim";
                     } else {
                         $atrasado = "Não";
@@ -80,7 +93,7 @@
                 }
 
                 $totalInfo = count($colunaInfo);
-                $porcentagemCon = ($infoConcluida/$totalInfo) * 100; 
+                $porcentagemCon = ($infoConcluida/$totalInfo) * 100;
         ?>	
         <tr>
             <td><?php echo $IDProjeto ?></td>
