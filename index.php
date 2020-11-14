@@ -53,12 +53,6 @@
                 $dataInicioPro = $projetos["dataInicioPro"];
                 $dataFimPro = $projetos["dataFimPro"];
 
-                /*$maxDataFimAti = mysqli_query($conexao, "SELECT MAX(dataFimAti) FROM atividades");
-                $reMaxDataFimAti = mysqli_fetch_array($maxDataFimAti);
-
-                $maxDataFimPro = mysqli_query($conexao, "SELECT MAX(dataFimPro) FROM projetos");
-                $reMaxDataFimPro = mysqli_fetch_array($maxDataFimPro);*/
-
                 $maxDataFimAti = mysqli_query($conexao, "SELECT dataFimAti FROM atividades");
                 $colunaDataFimAti = Array();
                 while ($linhaDataFimAti = mysqli_fetch_array($maxDataFimAti, MYSQLI_ASSOC)) {
