@@ -3,7 +3,7 @@
 
 ## Introdução
 
-Esse projeto foi realizado como desafio para a vaga de Estágio em Desenvolvimento de Software do Grupo Euax.
+Esse projeto tem como objetivo apresentar um simples sistema de gestão de proejtos e atividades.
 
 ## Funcionamento
 
