@@ -3,7 +3,7 @@
 
 ## Introdução
 
-Esse projeto tem como objetivo apresentar um simples sistema de gestão de proejtos e atividades.
+Esse projeto tem como objetivo apresentar um simples sistema de gestão de proejetos e atividades.
 
 ## Funcionamento
 
